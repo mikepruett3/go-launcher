@@ -14,14 +14,13 @@ const (
 var Config = struct {
 	Browser struct {
 		Exec  string
-		Path  string
 		Links []string
 	}
 
 	Programs []struct {
 		Name string
 		Exec string
-		Path string
+		StartDir string
 		Arg  string
 	}
 }{}
@@ -34,7 +33,6 @@ func main() {
 
 	for i := 0; i < len(Config.Browser.Links); i++ {
 		browser := exec.Command(Config.Browser.Exec, Config.Browser.Links[i])
-		browser.Dir = Config.Browser.Path
 		browserErr := browser.Start()
 		if browserErr != nil {
 			log.Fatal(browserErr)
@@ -43,7 +41,7 @@ func main() {
 
 	for i := 0; i < len(Config.Programs); i++ {
 		cmd := exec.Command(Config.Programs[i].Exec, Config.Programs[i].Arg)
-		cmd.Dir = Config.Programs[i].Path
+		cmd.Dir = Config.Programs[i].StartDir
 		execErr := cmd.Start()
 		if execErr != nil {
 			log.Fatal(execErr)

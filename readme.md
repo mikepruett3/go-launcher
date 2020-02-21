@@ -8,34 +8,33 @@ All programgs and settings are stored in the **config.yml** file, which should b
 
 ```yaml
 browser:
-  exec: "chrome.exe"
-  path: "C:/Program\ Files/Google/Chrome/"
+  exec: "C:\\Program Files\\Google Chrome\\chrome.exe"
   links:
     - "google.com"
     - "msn.com"
     - "reddit.com"
 
 programs:
-- exec: "calc.exe"
-  path: "C:/Windows/System32"
+- exec: "C:\\Windows\\System32\\calc.exe"
+  startdir: "C:\\"
   arg: ""
 ```
 
-**NOTE**: Path settings are entered in unix/MacOS notation. For Windows Path settings, use **/** instead of **\\** , and to use **\\** to escape spaces or other non-unix characters.
+**NOTE**: For Windows Program Executables, please enter the full path and executable name in the **exec:** section. Also ensuring to use **\\** (backslash escaping) each folder in the path. (Same with the **startdir:** paths as well)
 
 ie:
 
 ```bash
-path: "C:/Program\ Files\(x86\)/Application/"
+exec: "C:\\Program Files(x86)\\Application\\app.exe"
 ```
 
 Hoepfully this makes sense
 
 ### Browser Section
 
-For the **Browser** section, define the program executable (**exec:**) and path to the executable (**path:**) in the corresponding settings.
+For the **Browser** section, define the program executable and path to the executable in the **exec:** setting.
 
-If the program executable is defined in your system or user path, then it is safe to omit the **path:** setting.
+If the program executable is defined in your system or user path, then it is safe to omit the full path from the **exec:** setting. (Just leaving the name of the executable)
 
 Define one or multiple **urls** as **links:**
 
@@ -43,9 +42,11 @@ Define one or multiple **urls** as **links:**
 
 Define each program you wish to launch in the **Program** section.
 
-Each Program should have a defined program executable (**exec:**) and path to the executable (**path:**) in the corresponding settings.
+Each Program should have a defined program executable and path to the executable in the **exec:** setting.
 
-If the program executable is defined in your system or user path, then it is safe to omit the **path:** setting.
+If the program executable is defined in your system or user path, then it is safe to omit the full path from the **exec:** setting. (Just leaving the name of the executable)
+
+To specify a different Startup Directory (different from the path that the executable is located in), specify the path in the **startdir:** setting
 
 For runtime arguments, you can define them using the **arg:** setting. Support for only one runtime argument per program. **arg:** setting can be omitted if there is no runtime argurments required.
 
@@ -54,7 +55,7 @@ For runtime arguments, you can define them using the **arg:** setting. Support f
 To test your **config.yml**, run the following
 
 ```bash
-go run *.go
+go run ./main.go
 ```
 
 ## Building

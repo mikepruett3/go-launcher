@@ -1,12 +1,11 @@
 browser:
-  exec: "chrome.exe"
-  path: "C:/Program\ Files/Google/Chrome/"
+  exec: "C:\\Program Files\\Google Chrome\\chrome.exe"
   links:
     - "google.com"
     - "msn.com"
     - "reddit.com"
 
 programs:
-- exec: "calc.exe"
-  path: "C:/Windows/System32"
+- exec: "C:\\Windows\\System32\\calc.exe"
+  startdir: "C:\\"
   arg: ""
