@@ -18,10 +18,17 @@ var Config = struct {
 	}
 
 	Programs []struct {
-		Name string
-		Exec string
+		Name     string
+		Exec     string
 		StartDir string
-		Arg  string
+		Arg      string
+	}
+
+	ClickOnce []struct {
+		Name     string
+		Exec     string
+		StartDir string
+		Arg      string
 	}
 }{}
 
@@ -32,7 +39,7 @@ func main() {
 	}
 
 	for i := 0; i < len(Config.Browser.Links); i++ {
-		browser := exec.Command(Config.Browser.Exec, Config.Browser.Links[i])
+		browser := exec.Command(Config.Browser.Exec, "-url", Config.Browser.Links[i])
 		browserErr := browser.Start()
 		if browserErr != nil {
 			log.Fatal(browserErr)
@@ -47,4 +54,13 @@ func main() {
 			log.Fatal(execErr)
 		}
 	}
+
+	//for i := 0; i < len(Config.ClickOnce); i++ {
+	//	co := exec.Command("rundll32.exe", "dfshim.dll", ",", "ShOpenVerbApplication", Config.ClickOnce[i].Exec, Config.ClickOnce[i].Arg)
+	//	co.Dir = Config.ClickOnce[i].StartDir
+	//	coErr := co.Start()
+	//	if coErr != nil {
+	//		log.Fatal(coErr)
+	//	}
+	//}
 }
