@@ -14,6 +14,7 @@ const (
 var Config = struct {
 	Browser struct {
 		Exec  string
+		Profile string
 		Links []string
 	}
 
@@ -38,6 +39,14 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// Start up Chrome Session using Specified Profile first
+	browser := exec.Command(Config.Browser.Exec, "--profile-directory=", Config.Browser.Profile)
+	browserErr := browser.Start()
+	if browserErr != nil {
+		log.Fatal(browserErr)
+	}
+
+	// Then load in each url
 	for i := 0; i < len(Config.Browser.Links); i++ {
 		browser := exec.Command(Config.Browser.Exec, "-url", Config.Browser.Links[i])
 		browserErr := browser.Start()

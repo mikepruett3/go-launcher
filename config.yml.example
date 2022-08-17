@@ -1,5 +1,6 @@
 browser:
   exec: "C:\\Program Files\\Google Chrome\\chrome.exe"
+  profile: "Default"
   links:
     - "google.com"
     - "msn.com"
