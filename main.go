@@ -13,24 +13,36 @@ const (
 
 var Config = struct {
 	Browser struct {
-		Exec  string
-		Profile string
-		Links []string
+		Exec     string
+		Profile  string
+		StartDir string
+		Links    []string
 	}
 
 	Programs []struct {
-		Name     string
 		Exec     string
 		StartDir string
 		Arg      string
 	}
 
-	ClickOnce []struct {
-		Name     string
+	Elevated []struct {
 		Exec     string
 		StartDir string
 		Arg      string
 	}
+
+	Pwa []struct {
+		Exec     string
+		StartDir string
+		Profile  string
+		Appid    string
+	}
+
+	//ClickOnce []struct {
+	//	Exec     string
+	//	StartDir string
+	//	Arg      string
+	//}
 }{}
 
 func main() {
@@ -39,25 +51,39 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Start up Chrome Session using Specified Profile first
-	browser := exec.Command(Config.Browser.Exec, "--profile-directory=", Config.Browser.Profile)
-	browserErr := browser.Start()
-	if browserErr != nil {
-		log.Fatal(browserErr)
-	}
-
-	// Then load in each url
+	// Browser
 	for i := 0; i < len(Config.Browser.Links); i++ {
-		browser := exec.Command(Config.Browser.Exec, "-url", Config.Browser.Links[i])
+		browser := exec.Command(Config.Browser.Exec, "--profile-directory="+Config.Browser.Profile, "-url", Config.Browser.Links[i])
 		browserErr := browser.Start()
 		if browserErr != nil {
 			log.Fatal(browserErr)
 		}
 	}
 
+	// Programs
 	for i := 0; i < len(Config.Programs); i++ {
 		cmd := exec.Command(Config.Programs[i].Exec, Config.Programs[i].Arg)
 		cmd.Dir = Config.Programs[i].StartDir
+		execErr := cmd.Start()
+		if execErr != nil {
+			log.Fatal(execErr)
+		}
+	}
+
+	// Elevated Programs
+	for i := 0; i < len(Config.Elevated); i++ {
+		cmd := exec.Command("sudo", Config.Elevated[i].Exec, Config.Elevated[i].Arg)
+		cmd.Dir = Config.Elevated[i].StartDir
+		execErr := cmd.Start()
+		if execErr != nil {
+			log.Fatal(execErr)
+		}
+	}
+
+	// PWA Apps
+	for i := 0; i < len(Config.Pwa); i++ {
+		cmd := exec.Command(Config.Pwa[i].Exec, "--profile-directory="+Config.Pwa[i].Profile, "--app-id="+Config.Pwa[i].Appid)
+		cmd.Dir = Config.Pwa[i].StartDir
 		execErr := cmd.Start()
 		if execErr != nil {
 			log.Fatal(execErr)
