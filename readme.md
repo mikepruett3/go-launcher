@@ -13,6 +13,9 @@ go install github.com/mikepruett3/go-launcher@latest
 When ready to compile, run the following
 
 ```bash
+git clone https://github.com/mikepruett3/go-launcher.git
+
+cd go-launcher
 go build
 ```
 
