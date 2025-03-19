@@ -27,7 +27,7 @@ To test your `config.yaml`, run the following
 go run ./main.go
 ```
 
-The resulting executable & config.yaml file can be placed in your system or user path.
+The resulting executable can be placed in your system or user path.
 
 ## Configuration
 
@@ -35,7 +35,7 @@ All programs and settings are stored in the `config.yaml` file, which can be loc
 
 - `/etc/go-launcher/`
 - `$HOME/.config/go-launcher/`
-- or the current directory
+- `pwd (current directory)`
 
 An example `config.yml` has been provided for `Windows (config.yaml.windows.example)` and `Linux (config.yaml.linux.example)` is included with this repo. Rename the file and customize to your tailored experience.
 
