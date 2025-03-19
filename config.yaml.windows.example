@@ -1,0 +1,13 @@
+browser:
+  exec: "C:\\Program Files\\Google Chrome\\chrome.exe"
+  profile: Default
+  links:
+    - https://google.com/
+    - https://msn.com/
+    - https://reddit.com/
+
+programs:
+  calc:
+    exec: "C:\\Windows\\System32\\calc.exe"
+    start_dir: "C:\\Windows\\System32\\"
+    args: ""

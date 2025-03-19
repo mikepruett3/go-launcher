@@ -1,0 +1,17 @@
+browser:
+  exec: /usr/bin/chromium
+  profile: Default
+  links:
+    - https://google.com/
+    - https://msn.com/
+    - https://reddit.com/
+
+programs:
+  plexamp:
+    exec: /usr/bin/gtk-launch
+    start_dir: $HOME/
+    args: plexamp
+
+  steam:
+    exec: steam
+    start_dir: /usr/bin/
