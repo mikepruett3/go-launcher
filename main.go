@@ -97,7 +97,7 @@ func main() {
 	}
 
 	switch true {
-	case strings.Contains(browser, "chromium"):
+	case strings.Contains(browser, "chrom"):
 		for _, link := range links {
 			// Open Browser with specified URL
 			cmd := exec.Command(browser, args, profile, link)
