@@ -12,7 +12,7 @@ on:
 jobs:
   build-linux-amd64:
     name: build linux/amd64
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
 
@@ -26,7 +26,7 @@ jobs:
         go get .
 
     - name: Build
-      run:  go build -ldflags="-f" -v ./...
+      run:  go build -v ./...
 
     - name: Test
       run: go test -v ./...
