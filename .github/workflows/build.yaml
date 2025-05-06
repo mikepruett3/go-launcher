@@ -26,7 +26,7 @@ jobs:
         go get .
 
     - name: Build
-      run: go build -ldflags "-z noexecstack" -v ./...
+      run: go build -ldflags="-z,noexecstack" -v ./...
 
     - name: Test
       run: go test -v ./...
@@ -45,6 +45,10 @@ jobs:
     - name: Install dependencies
       run: |
         go get .
+
+    - name: Install GoVersionInfo
+      run: |
+        go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo
 
     - name: Generate
       run: go generate -v ./...
