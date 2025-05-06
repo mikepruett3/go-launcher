@@ -12,14 +12,14 @@ on:
 jobs:
   build-linux-amd64:
     name: build linux/amd64
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
 
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
-        go-version: '1.23.'
+        go-version: '1.23.0'
 
     - name: Install dependencies
       run: |
