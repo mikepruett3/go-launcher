@@ -9,26 +9,58 @@ permissions:
   packages: write
 
 jobs:
-  releases-matrix:
-    name: Release Go Binary
+#  releases-matrix:
+#    name: Release Go Binary
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        # build and publish in parallel: linux/386, linux/amd64, linux/arm64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
+#        goos: [linux, windows]
+#        goarch: [amd64]
+#        exclude:
+#          - goarch: arm64
+#            goos: windows
+#    steps:
+#    - uses: actions/checkout@v4
+#
+#    - uses: wangyoucao577/go-release-action@v1
+#      with:
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+#        goos: ${{ matrix.goos }}
+#        goarch: ${{ matrix.goarch }}
+#        #goversion: latest
+#        #project_path: "./cmd/test-binary"
+#        #binary_name: "test-binary"
+#        extra_files: LICENSE README.md config.yaml.linux.example config.yaml.windows.example
+
+  release-linux-amd64:
+    name: Release Linux Go Binary
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # build and publish in parallel: linux/386, linux/amd64, linux/arm64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
-        goos: [linux, windows]
-        goarch: [amd64]
-        exclude:
-          - goarch: arm64
-            goos: windows
+
     steps:
     - uses: actions/checkout@v4
 
     - uses: wangyoucao577/go-release-action@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        goos: ${{ matrix.goos }}
-        goarch: ${{ matrix.goarch }}
-        #goversion: latest
-        #project_path: "./cmd/test-binary"
-        #binary_name: "test-binary"
+        build_command: 'GOARCH=386 go build'
+        goos: linux
+        goarch: amd64
+        #goversion: 1.24
+        extra_files: LICENSE README.md config.yaml.linux.example config.yaml.windows.example
+
+  release-windows-amd64:
+    name: Release Windows Go Binary
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: wangyoucao577/go-release-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        pre_command: 'go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo && go generate'
+        goos: windows
+        goarch: amd64
+        #goversion: 1.24
         extra_files: LICENSE README.md config.yaml.linux.example config.yaml.windows.example
