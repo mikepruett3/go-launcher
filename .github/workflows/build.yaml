@@ -31,30 +31,30 @@ jobs:
     - name: Test
       run: go test -v ./...
 
-#  build-windows-amd64:
-#    name: build windows/amd64
-#    runs-on: windows-latest
-#    steps:
-#    - uses: actions/checkout@v4
-#
-#    - name: Set up Go
-#      uses: actions/setup-go@v5
-#      with:
-#        go-version: '1.24'
-#
-#    - name: Install dependencies
-#      run: |
-#        go get .
-#
-#    - name: Install GoVersionInfo
-#      run: |
-#        go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo
-#
-#    - name: Generate
-#      run: go generate -v ./...
-#
-#    - name: Build
-#      run: go build -v ./...
-#
-#    - name: Test
-#      run: go test -v ./...
+  build-windows-amd64:
+    name: build windows/amd64
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.24.0'
+
+    - name: Install dependencies
+      run: |
+        go get .
+
+    - name: Install GoVersionInfo
+      run: |
+        go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo
+
+    - name: Generate
+      run: go generate -v ./...
+
+    - name: Build
+      run: go build -v ./...
+
+    - name: Test
+      run: go test -v ./...
